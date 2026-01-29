@@ -3,8 +3,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-SCAN_BIN="$PROJECT_ROOT/backend/bin/scan"
+SCAN_BIN="$SCRIPT_DIR/backend/bin/scan"
 
 usage() {
     echo "🛡️  Security Exposure Scanner CLI"
