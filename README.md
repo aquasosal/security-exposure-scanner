@@ -189,10 +189,6 @@ vercel
 - **Backup files**: *.bak, *.backup, *.old, backup.zip
 - **Development files**: README.md, .DS_Store, debug.log
 
-## License
-
-MIT
-
 ## Repository
 
 https://github.com/aquasosal/security-exposure-scanner
