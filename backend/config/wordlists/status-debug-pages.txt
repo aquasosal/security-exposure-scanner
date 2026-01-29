@@ -1,3 +1,37 @@
+# Rails Health Check
+up
+rails/health
+healthcheck
+health_check
+
+# Tomcat Manager
+manager/html
+manager/text
+manager/status
+manager/jmxproxy
+host-manager/html
+host-manager/text
+
+# Solr Admin
+solr
+solr/admin/info/health
+solr/admin/info/logging
+solr/admin/luke
+solr/admin/mbeans
+api/node/health
+api/node/logging
+
+# ASP.NET Diagnostics
+trace.axd
+elmah.axd
+errorlog.axd
+/vdir.axd
+
+# WildFly / JBoss (note: typically on port 9990)
+console
+management
+welcome-content
+
 # Apache Status & Admin
 server-status
 server-info
@@ -8,6 +42,8 @@ apache-status?auto
 
 # Nginx Status
 nginx_status
+/basic_status
+/stub_status
 /nginx_status
 status
 /nginx-status
@@ -89,8 +125,16 @@ metrics.json
 /graphite/metrics
 /_metrics
 
-# Logging
-/logs
+# ELMAH (ASP.NET Error Logging)
+elmah.axd
+/errorlog.axd
+elmah
+/el mah
+
+# ASP.NET Tracing
+trace.axd
+/vdir.axd
+/webresource.axd
 /_logs
 /log
 /logfile
@@ -140,6 +184,10 @@ admin
 /_profiler/*
 /_debugbar
 /xhprof
+/_wdt
+/_profiler/*
+/_debugbar
+/xhprof
 phpmyadmin
 phpMyAdmin
 myadmin
@@ -177,6 +225,23 @@ graphql
 
 # GitLab
 /.well-known/gitlab
+/-/health
+/-/readiness
+/-/liveness
+/health_check
+api/v4
+api/v4/projects
+api/v4/users
+
+# Jenkins
+/script
+/restart
+/safeRestart
+/quietDown
+/exit
+/crumbIssuer
+/queue
+/api/json
 /-/health
 /-/readiness
 /-/liveness
@@ -231,6 +296,12 @@ graphql
 /v1/agent/members
 /v1/jobs
 /v1/evaluations
+
+# Docker Registry
+/v2
+/v2/_catalog
+/v2/<name>/manifests
+v2/_catalog
 
 # HashiCorp Consul
 /ui
