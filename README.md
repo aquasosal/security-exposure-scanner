@@ -10,6 +10,7 @@ Automated security scanner for detecting exposed development and configuration f
 - **Remediation Guidance**: Each finding includes risk description and fix steps
 - **Multi-Target Support**: Scan multiple URLs, schedule automated scans
 - **Modern UI**: Next.js frontend with TypeScript and Tailwind CSS
+- **CLI Tool**: Command-line interface for quick scanning without UI
 
 ## Architecture
 
@@ -30,7 +31,48 @@ Supabase (PostgreSQL)
 - **Database**: Supabase (PostgreSQL)
 - **Deployment**: AWS Lambda (backend), Vercel (frontend)
 
-## Quick Start (Test Mode)
+## Quick Start
+
+### CLI Tool (Recommended for Quick Scans)
+
+```bash
+# Basic scan
+./scan.sh --url https://example.com
+
+# Scan specific categories
+./scan.sh --url https://example.com --category env,git,status
+
+# Filter by severity
+./scan.sh --url https://example.com --severity critical,high
+
+# Save results to JSON
+./scan.sh --url https://example.com --output results.json
+
+# Verbose mode with content preview
+./scan.sh --url https://example.com --verbose
+
+# All options
+./scan.sh --url https://example.com --category env,git --severity critical,high --output results.json --verbose --concurrent 20
+```
+
+**Available Categories:**
+- `env` - Environment files (.env, .env.local, etc.)
+- `git` - Git metadata (.git/config, .gitignore, etc.)
+- `config` - Server configs (nginx.conf, apache.conf, .htaccess, etc.)
+- `sensitive` - Database/app configs (my.cnf, php.ini, settings.py, etc.)
+- `cloud` - Cloud credentials (aws credentials, google credentials, etc.)
+- `docker` - Docker files (Dockerfile, docker-compose.yml)
+- `ci-cd` - CI/CD configs (.travis.yml, .github/workflows, etc.)
+- `backup` - Backup files (*.bak, backup.sql, etc.)
+- `status` - Status/debug pages (server-status, phpinfo, actuator, etc.)
+
+**Available Severity Levels:**
+- `critical` - Immediate action required
+- `high` - Review and remediate soon
+- `medium` - Review when possible
+- `low` - Low risk, consider for cleanup
+
+### Quick Start (Test Mode)
 
 ### Backend Server
 
