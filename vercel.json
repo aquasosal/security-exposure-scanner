@@ -6,5 +6,6 @@
   "framework": "nextjs",
   "devCommand": "cd frontend && npm run dev",
   "regions": ["hnd1"],
-  "ignoreCommand": "cd frontend && echo 'Build complete'"
+  "ignoreCommand": "cd frontend && echo 'Build complete'",
+  "cleanUrls": true
 }
