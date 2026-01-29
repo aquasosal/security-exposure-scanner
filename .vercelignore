@@ -6,11 +6,8 @@ node_modules
 # Testing
 coverage
 
-# Next.js
+# Next.js build artifacts
 .next/
-out/
-build
-dist
 
 # Misc
 .DS_Store
@@ -31,5 +28,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Backend (not needed for frontend deployment)
+# Backend (exclude from frontend deployment)
 backend/
+
+# Build cache
+.cache/
