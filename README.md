@@ -113,6 +113,15 @@ npm i -g vercel
 vercel
 ```
 
+**Vercel Configuration:**
+1. Import from GitHub: `aquasosal/security-exposure-scanner`
+2. Set Root Directory: `frontend`
+3. Set Environment Variables:
+   - `NEXT_PUBLIC_API_URL`: Your Lambda URL (e.g., `https://abc123.execute-api.ap-northeast-2.amazonaws.com`)
+4. Deploy!
+
+**Note**: If testing locally without backend, frontend will return mock results for demonstration purposes.
+
 ## API Endpoints
 
 ### Scans
