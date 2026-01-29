@@ -1,0 +1,11 @@
+*.bak
+*.backup
+*.old
+*.orig
+backup.zip
+backup.tar.gz
+backup.tar
+backup.sql
+*.swp
+*.swo
+*~

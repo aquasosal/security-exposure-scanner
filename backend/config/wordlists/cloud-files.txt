@@ -1,0 +1,8 @@
+~/.aws/credentials
+~/.aws/config
+aws_credentials
+credentials
+google-credentials.json
+application_default_credentials.json
+azure-credentials.json
+service-principal.json

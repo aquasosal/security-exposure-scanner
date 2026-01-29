@@ -1,0 +1,7 @@
+.travis.yml
+.gitlab-ci.yml
+bitbucket-pipelines.yml
+.circleci/config.yml
+.github/workflows/*.yml
+.github/workflows/*.yaml
+Jenkinsfile
