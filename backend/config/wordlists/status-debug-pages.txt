@@ -1,0 +1,251 @@
+# Apache Status & Admin
+server-status
+server-info
+server-status?auto
+server-status?refresh
+apache-status
+apache-status?auto
+
+# Nginx Status
+nginx_status
+/nginx_status
+status
+/nginx-status
+status.html
+nginx-status?auto
+nginx-status?json
+
+# PHP Info
+phpinfo
+phpinfo.php
+info.php
+test.php
+/_phpinfo
+
+# Database Status (MySQL, PostgreSQL, Redis)
+mysql_status
+/pgsql_status
+redis_info
+redis_status
+memcached_status
+
+# Web Framework Status Pages
+# Django
+_django_admin
+admin
+admin/login
+admin/dashboard
+djangoadmin
+
+# Rails
+rails/info
+rails/info/properties
+rails/info/routes
+rails/db
+rails/mailers
+/rails/info
+
+# Spring Boot
+actuator
+actuator/health
+actuator/info
+actuator/metrics
+actuator/env
+actuator/beans
+actuator/mappings
+actuator/threaddump
+actuator/heapdump
+actuator/logfile
+actuator/trace
+actuator/sessions
+actuator/auditevents
+
+# Express.js
+/_debug
+/_healthcheck
+/_status
+/health
+/healthz
+/status
+/ping
+
+# Flask
+/debug
+/debug_toolbar
+/_debug_toolbar
+
+# Laravel
+/telescope
+/horizon
+/nova
+/_debugbar
+
+# Monitoring & Observability
+metrics
+/metrics
+metrics.json
+/prometheus
+/prometheus/metrics
+/graphite/metrics
+/_metrics
+
+# Logging
+/logs
+/_logs
+/log
+/logfile
+/access.log
+/error.log
+/application.log
+/debug.log
+/trace.log
+/logs.txt
+
+# Jenkins
+jenkins
+/jenkins
+
+# GitLab
+/gitlab
+/admin/dashboard
+
+# Kubernetes / Docker
+healthz
+/livez
+/readyz
+/metrics
+/cadvisor/metrics
+/kube-pods
+
+# WordPress
+wp-admin
+/wp-admin/admin.php
+wp-login.php
+
+# Common Admin Panels
+admin
+/admin
+/admin/login
+/administrator
+/cpanel
+/webadmin
+/controlpanel
+/dashboard
+/backend
+/adminpanel
+
+# Development Tools
+/_profiler
+/_wdt
+/_profiler/*
+/_debugbar
+/xhprof
+phpmyadmin
+phpMyAdmin
+myadmin
+pma
+adminer
+adminer.php
+
+# Error Pages Debugging
+/error
+/500
+/404
+
+# API Debug
+/api/docs
+/api/v1/docs
+/swagger
+swagger-ui.html
+/redoc
+/api/_docs
+graphql
+/playground
+/graphiql
+
+# Debug Endpoints
+/debug
+/_debug
+/debug_info
+/debuginfo
+/trace
+/_trace
+/dump
+/_dump
+/var_dump
+/var-dump
+
+# GitLab
+/.well-known/gitlab
+/-/health
+/-/readiness
+/-/liveness
+
+# Consul
+/v1/agent/services
+/v1/catalog/services
+/v1/health
+/v1/status
+/v1/kv
+
+# Vault
+/v1/sys/health
+/v1/sys/seal-status
+
+# Etcd
+/v2/keys
+/v3/kv
+
+# Traefik
+/dashboard
+/api/http/routers
+/api/http/services
+
+# Grafana
+/grafana
+/d
+
+# Elasticsearch
+/_cluster/health
+/_nodes
+/_cat/indices
+/_cat/health
+/_cat/nodes
+
+# MongoDB
+/_status
+
+# RabbitMQ
+/api/overview
+/api/queues
+/api/exchanges
+/api/connections
+/api/channels
+
+# Minio
+/minio/health/live
+/minio/health/ready
+
+# HashiCorp Nomad
+/v1/status
+/v1/agent/members
+/v1/jobs
+/v1/evaluations
+
+# HashiCorp Consul
+/ui
+/v1/catalog
+/v1/health/service
+
+# Portainer
+/api/status
+/portainer
+
+# SonarQube
+/api/server/status
+
+# Jira
+/status
+
+# Confluence
+/rest/api/status

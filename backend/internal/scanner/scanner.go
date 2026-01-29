@@ -65,6 +65,7 @@ func (s *Scanner) LoadWordlists(configDir string) error {
 		"docker-files.txt",
 		"ci-cd-files.txt",
 		"backup-files.txt",
+		"status-debug-pages.txt",
 	}
 
 	for _, filename := range wordlistFiles {
@@ -183,6 +184,106 @@ func (s *Scanner) LoadSeverityRules(rulesFile string) error {
 			Severity:    models.SeverityMedium,
 			Risk:        "Debug information may contain secrets",
 			Remediation: "Remove from production, disable debug logging",
+		},
+		"server-status": {
+			Severity:    models.SeverityCritical,
+			Risk:        "Apache server status exposes internal server info, requests, connection details",
+			Remediation: "Disable mod_status in production or restrict access by IP",
+		},
+		"server-info": {
+			Severity:    models.SeverityCritical,
+			Risk:        "Apache server info exposes configuration details, loaded modules",
+			Remediation: "Disable mod_info in production or restrict access by IP",
+		},
+		"phpinfo": {
+			Severity:    models.SeverityCritical,
+			Risk:        "PHP configuration, installed modules, file paths, environment variables exposed",
+			Remediation: "Remove phpinfo() calls from production, restrict access",
+		},
+		"actuator": {
+			Severity:    models.SeverityCritical,
+			Risk:        "Spring Boot actuator exposes application metrics, env vars, heapdump",
+			Remediation: "Disable actuator endpoints in production, restrict access",
+		},
+		"actuator/health": {
+			Severity:    models.SeverityHigh,
+			Risk:        "Application health status exposed",
+			Remediation: "Restrict health endpoint access, consider removing sensitive info",
+		},
+		"actuator/env": {
+			Severity:    models.SeverityCritical,
+			Risk:        "Environment variables with secrets, database credentials exposed",
+			Remediation: "Disable actuator/env in production immediately",
+		},
+		"actuator/heapdump": {
+			Severity:    models.SeverityCritical,
+			Risk:        "Heap dump may contain passwords, session data, sensitive info",
+			Remediation: "Disable actuator/heapdump in production immediately",
+		},
+		"telescope": {
+			Severity:    models.SeverityHigh,
+			Risk:        "Laravel Telescope exposes requests, queries, exceptions, database info",
+			Remediation: "Disable Telescope in production, remove TelescopeServiceProvider",
+		},
+		"horizon": {
+			Severity:    models.SeverityMedium,
+			Risk:        "Laravel Horizon queue monitoring exposed",
+			Remediation: "Restrict Horizon access, disable in production if not needed",
+		},
+		"/metrics": {
+			Severity:    models.SeverityHigh,
+			Risk:        "Application metrics exposed, may reveal internal architecture",
+			Remediation: "Restrict metrics endpoint access, use authentication",
+		},
+		"/prometheus": {
+			Severity:    models.SeverityHigh,
+			Risk:        "Prometheus metrics exposed",
+			Remediation: "Restrict access to Prometheus endpoints, use reverse proxy with auth",
+		},
+		"/logs": {
+			Severity:    models.SeverityHigh,
+			Risk:        "Application logs may contain sensitive data, stack traces, secrets",
+			Remediation: "Disable log file serving, restrict access, remove from web root",
+		},
+		"/debug": {
+			Severity:    models.SeverityCritical,
+			Risk:        "Debug endpoint exposes internal application state and debugging info",
+			Remediation: "Disable debug mode in production, remove debug routes",
+		},
+		"/admin": {
+			Severity:    models.SeverityHigh,
+			Risk:        "Admin panel exposed, may lead to unauthorized access",
+			Remediation: "Restrict admin access by IP, implement strong authentication",
+		},
+		"/jenkins": {
+			Severity:    models.SeverityCritical,
+			Risk:        "Jenkins CI/CD exposed, can access build artifacts, credentials",
+			Remediation: "Restrict Jenkins access, enable security, use reverse proxy",
+		},
+		"/gitlab": {
+			Severity:    models.SeverityHigh,
+			Risk:        "GitLab instance exposed, may access repositories, CI pipelines",
+			Remediation: "Restrict access, enable 2FA, configure network policies",
+		},
+		"/swagger": {
+			Severity:    models.SeverityMedium,
+			Risk:        "API documentation exposed, reveals API structure and endpoints",
+			Remediation: "Restrict Swagger access, disable in production if not needed",
+		},
+		"/grafana": {
+			Severity:    models.SeverityHigh,
+			Risk:        "Grafana dashboard exposed, reveals internal metrics and infrastructure",
+			Remediation: "Restrict Grafana access, enable authentication",
+		},
+		"/_cluster/health": {
+			Severity:    models.SeverityHigh,
+			Risk:        "Elasticsearch cluster status exposed",
+			Remediation: "Restrict Elasticsearch API access, use security plugin",
+		},
+		"/healthz": {
+			Severity:    models.SeverityMedium,
+			Risk:        "Kubernetes health endpoint exposed",
+			Remediation: "Restrict health endpoint access, consider using internal services only",
 		},
 	}
 
@@ -372,6 +473,24 @@ func (s *Scanner) getFileType(filePath string) string {
 	ext := strings.ToLower(filepath.Ext(filePath))
 
 	switch {
+	case strings.Contains(filePath, "server-status") || strings.Contains(filePath, "server-info") || strings.Contains(filePath, "nginx_status"):
+		return "status-page"
+	case strings.Contains(filePath, "admin") || strings.Contains(filePath, "dashboard") || strings.Contains(filePath, "cpanel"):
+		return "admin-panel"
+	case strings.Contains(filePath, "metrics") || strings.Contains(filePath, "prometheus"):
+		return "metrics-endpoint"
+	case strings.Contains(filePath, "debug") || strings.Contains(filePath, "profiler") || strings.Contains(filePath, "trace"):
+		return "debug-endpoint"
+	case strings.Contains(filePath, "logs") || strings.Contains(filePath, "/log") || ext == ".log":
+		return "log-file"
+	case strings.Contains(filePath, "swagger") || strings.Contains(filePath, "redoc") || strings.Contains(filePath, "graphiql"):
+		return "api-docs"
+	case strings.Contains(filePath, "actuator"):
+		return "spring-boot-actuator"
+	case strings.Contains(filePath, "jenkins") || strings.Contains(filePath, "gitlab"):
+		return "devops-tool"
+	case strings.Contains(filePath, "phpinfo") || strings.Contains(filePath, "phpmyadmin") || strings.Contains(filePath, "adminer"):
+		return "php-tool"
 	case ext == ".env" || strings.Contains(filePath, ".env"):
 		return "environment-file"
 	case strings.Contains(filePath, ".git"):
@@ -388,8 +507,6 @@ func (s *Scanner) getFileType(filePath string) string {
 		return "cloud-credentials"
 	case strings.Contains(filePath, "backup") || strings.Contains(filePath, ".bak"):
 		return "backup-file"
-	case ext == ".log":
-		return "log-file"
 	default:
 		return "unknown"
 	}
