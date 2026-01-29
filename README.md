@@ -30,28 +30,20 @@ Supabase (PostgreSQL)
 - **Database**: Supabase (PostgreSQL)
 - **Deployment**: AWS Lambda (backend), Vercel (frontend)
 
-## Quick Start
+## Quick Start (Test Mode)
 
-### Prerequisites
-
-- Go 1.25.6+
-- Node.js 18+
-- Supabase account
-- AWS account (for Lambda deployment)
-
-### Backend Setup
+### Backend Server
 
 ```bash
 cd backend
 
-# Install dependencies
-go mod download
-
-# Run local server
+# Run local server (no database required for basic testing)
 go run cmd/api/main.go
 ```
 
-### Frontend Setup
+Server runs on http://localhost:8080
+
+### Frontend Server
 
 ```bash
 cd frontend
@@ -64,6 +56,17 @@ npm run dev
 ```
 
 Open http://localhost:3000
+
+### Testing the Scanner
+
+1. Start backend: `cd backend && go run cmd/api/main.go`
+2. Start frontend: `cd frontend && npm run dev`
+3. Open http://localhost:3000
+4. Enter a URL (e.g., `https://example.com`)
+5. Click "🔍 스캔 시작" (Start Scan)
+6. View real-time results
+
+**Note**: In test mode, the scanner will return mock results. Connect to Supabase for full functionality.
 
 ## Database Setup
 
